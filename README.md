@@ -1,4 +1,4 @@
-# Project Tracker
+# ArchTrack
 
 A modern project tracking application for architecture and solution teams. Built with React, TypeScript, and Vite.
 
@@ -22,8 +22,8 @@ A modern project tracking application for architecture and solution teams. Built
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/coltcoan/project-tracker.git
-   cd project-tracker
+   git clone https://github.com/coltcoan/archtrack.git
+   cd archtrack
    ```
 
 2. **Install dependencies**
@@ -49,18 +49,18 @@ A modern project tracking application for architecture and solution teams. Built
 
 4. **Configure your database location**
    
-   On first launch, you'll be prompted to set up Project Tracker:
-   - Click "Set Up Project Tracker"
-   - Enter the path to your data folder (e.g., `/Users/yourname/ProjectTracker-Data`)
+   On first launch, you'll be prompted to set up ArchTrack:
+   - Click "Set Up ArchTrack"
+   - Enter the path to your data folder (e.g., `/Users/yourname/ArchTrack-Data`)
    - Optionally configure solution area and skillset filters
    - Click "Save Configuration"
 
 ## Database Structure
 
-Project Tracker stores all data as JSON files in your configured database location:
+ArchTrack stores all data as JSON files in your configured database location:
 
 ```
-ProjectTracker-Data/
+ArchTrack-Data/
 ├── settings.json          # App configuration
 ├── technology-settings.json  # Solution areas and technologies
 ├── customers/            # Customer records
@@ -75,7 +75,7 @@ ProjectTracker-Data/
 
 ### Backup Your Data
 
-Simply copy your ProjectTracker-Data folder to back up all your projects and customers!
+Simply copy your ArchTrack-Data folder to back up all your projects and customers!
 
 ## Available Scripts
 
@@ -89,14 +89,14 @@ Simply copy your ProjectTracker-Data folder to back up all your projects and cus
 
 ## Deploying to GitHub Pages
 
-Project Tracker can be hosted as a static demo on GitHub Pages. **Note**: Users will still need to run the app locally with the backend server to use it with their own data.
+ArchTrack can be hosted as a static demo on GitHub Pages. **Note**: Users will still need to run the app locally with the backend server to use it with their own data.
 
 ### Quick Deploy (Manual)
 
 1. **Create a GitHub repository**
    ```bash
    git init
-   git remote add origin https://github.com/coltcoan/project-tracker.git
+   git remote add origin https://github.com/coltcoan/archtrack.git
    ```
 
 2. **Set the base path**
@@ -108,7 +108,7 @@ Project Tracker can be hosted as a static demo on GitHub Pages. **Note**: Users 
    
    Edit `.env` and set your repo name:
    ```
-   VITE_BASE_PATH=/project-tracker/
+   VITE_BASE_PATH=/archtrack/
    ```
 
 3. **Deploy**
@@ -129,11 +129,11 @@ The repository includes a GitHub Actions workflow (`.github/workflows/deploy.yml
 2. Enable GitHub Pages in your repository settings
 3. Push to main branch - deployment happens automatically!
 
-Your app will be available at `https://coltcoan.github.io/project-tracker/`
+Your app will be available at `https://coltcoan.github.io/archtrack/`
 
 ### Using the GitHub Pages Demo
 
-The GitHub Pages deployment serves as a demo/landing page. To actually use Project Tracker with your data:
+The GitHub Pages deployment serves as a demo/landing page. To actually use ArchTrack with your data:
 
 1. Clone the repository
 2. Follow the installation instructions above
