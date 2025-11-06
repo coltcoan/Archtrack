@@ -6,12 +6,18 @@ import { useConfig } from '@/contexts/config-context';
 export default function DemoSettings() {
   const { isDemoMode, refreshConfig } = useConfig();
   const [localDemoMode, setLocalDemoMode] = useState(isDemoMode);
+  const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
 
   useEffect(() => {
     setLocalDemoMode(isDemoMode);
   }, [isDemoMode]);
 
   const handleDemoModeToggle = async (checked: boolean) => {
+    // Don't allow toggling on GitHub Pages
+    if (isGitHubPages) {
+      return;
+    }
+    
     setLocalDemoMode(checked);
 
     try {
@@ -47,27 +53,37 @@ export default function DemoSettings() {
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
             <p className="text-sm text-muted-foreground mb-2">
-              Show sample data for demonstrations and testing. Your actual data remains unchanged and will be restored when demo mode is disabled.
+              {isGitHubPages 
+                ? 'This deployment is running in demo mode with sample data. To use your own data, run the app locally.'
+                : 'Show sample data for demonstrations and testing. Your actual data remains unchanged and will be restored when demo mode is disabled.'
+              }
             </p>
-            <p className="text-xs text-muted-foreground">
-              Demo mode is useful for:
-            </p>
-            <ul className="text-xs text-muted-foreground list-disc list-inside mt-1 space-y-1">
-              <li>Testing features without affecting real data</li>
-              <li>Creating screenshots for documentation</li>
-              <li>Demonstrating the application to others</li>
-            </ul>
+            {!isGitHubPages && (
+              <>
+                <p className="text-xs text-muted-foreground">
+                  Demo mode is useful for:
+                </p>
+                <ul className="text-xs text-muted-foreground list-disc list-inside mt-1 space-y-1">
+                  <li>Testing features without affecting real data</li>
+                  <li>Creating screenshots for documentation</li>
+                  <li>Demonstrating the application to others</li>
+                </ul>
+              </>
+            )}
           </div>
           <Switch
             checked={localDemoMode}
             onCheckedChange={handleDemoModeToggle}
+            disabled={isGitHubPages}
           />
         </div>
         
         {localDemoMode && (
           <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
             <p className="text-sm text-yellow-800">
-              <strong>Demo Mode Active:</strong> You are currently viewing sample data. Toggle off to return to your real data.
+              <strong>Demo Mode Active:</strong> {isGitHubPages 
+                ? 'This is a demo deployment with sample data.' 
+                : 'You are currently viewing sample data. Toggle off to return to your real data.'}
             </p>
           </div>
         )}
