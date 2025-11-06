@@ -1,10 +1,17 @@
 import { Project, Customer } from '@/types';
+import { DEMO_PROJECTS, DEMO_CUSTOMERS } from './demo-data';
 
 const API_BASE_URL = 'http://localhost:3001/api';
+const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
 
 // Projects API
 export const projectsApi = {
   getAll: async (): Promise<Project[]> => {
+    // Return demo data on GitHub Pages
+    if (isGitHubPages) {
+      return DEMO_PROJECTS;
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/projects`);
       if (!response.ok) throw new Error('Failed to fetch projects');
@@ -23,6 +30,15 @@ export const projectsApi = {
   },
 
   getById: async (id: string): Promise<Project> => {
+    // Return demo data on GitHub Pages
+    if (isGitHubPages) {
+      const project = DEMO_PROJECTS.find(p => p.crc53_projectid === id);
+      if (!project) {
+        throw new Error('Project not found');
+      }
+      return project;
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/projects/${id}`);
       if (!response.ok) throw new Error('Project not found');
@@ -41,6 +57,11 @@ export const projectsApi = {
   },
 
   create: async (data: Partial<Project>): Promise<Project> => {
+    // Block creates on GitHub Pages
+    if (isGitHubPages) {
+      throw new Error('Cannot create projects in demo mode');
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/projects`, {
         method: 'POST',
@@ -55,6 +76,11 @@ export const projectsApi = {
   },
 
   update: async (id: string, data: Partial<Project>): Promise<Project> => {
+    // Block updates on GitHub Pages
+    if (isGitHubPages) {
+      throw new Error('Cannot update projects in demo mode');
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
         method: 'PUT',
@@ -69,6 +95,11 @@ export const projectsApi = {
   },
 
   delete: async (id: string): Promise<void> => {
+    // Block deletes on GitHub Pages
+    if (isGitHubPages) {
+      throw new Error('Cannot delete projects in demo mode');
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
         method: 'DELETE',
@@ -83,6 +114,11 @@ export const projectsApi = {
 // Customers API
 export const customersApi = {
   getAll: async (): Promise<Customer[]> => {
+    // Return demo data on GitHub Pages
+    if (isGitHubPages) {
+      return DEMO_CUSTOMERS;
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/customers`);
       if (!response.ok) throw new Error('Failed to fetch customers');
@@ -94,6 +130,15 @@ export const customersApi = {
   },
 
   getById: async (id: string): Promise<Customer> => {
+    // Return demo data on GitHub Pages
+    if (isGitHubPages) {
+      const customer = DEMO_CUSTOMERS.find(c => c.crc53_customerid === id);
+      if (!customer) {
+        throw new Error('Customer not found');
+      }
+      return customer;
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/customers/${id}`);
       if (!response.ok) throw new Error('Customer not found');
@@ -104,6 +149,11 @@ export const customersApi = {
   },
 
   create: async (data: Partial<Customer>): Promise<Customer> => {
+    // Block creates on GitHub Pages
+    if (isGitHubPages) {
+      throw new Error('Cannot create customers in demo mode');
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/customers`, {
         method: 'POST',
@@ -118,6 +168,11 @@ export const customersApi = {
   },
 
   update: async (id: string, data: Partial<Customer>): Promise<Customer> => {
+    // Block updates on GitHub Pages
+    if (isGitHubPages) {
+      throw new Error('Cannot update customers in demo mode');
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/customers/${id}`, {
         method: 'PUT',
@@ -132,6 +187,11 @@ export const customersApi = {
   },
 
   delete: async (id: string): Promise<void> => {
+    // Block deletes on GitHub Pages
+    if (isGitHubPages) {
+      throw new Error('Cannot delete customers in demo mode');
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/customers/${id}`, {
         method: 'DELETE',
