@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Modern Blue/Purple Gradient Theme */
+    --background: 220 25% 97%;
+    --foreground: 224 15% 25%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 15% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 15% 25%;
+    
+    /* Primary - Rich Blue */
+    --primary: 233 85% 58%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary - Purple Accent */
+    --secondary: 265 75% 65%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Muted/Subtle */
+    --muted: 220 20% 95%;
+    --muted-foreground: 224 12% 50%;
+    
+    /* Accent - Orange/Amber for highlights */
+    --accent: 35 95% 58%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Destructive - Soft Red */
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders and Inputs */
+    --border: 220 20% 88%;
+    --input: 220 20% 88%;
+    --ring: 233 85% 58%;
+    --radius: 0.75rem;
+    
+    /* Success - Green */
+    --success: 142 76% 45%;
+    --success-foreground: 0 0% 100%;
+  }
+
+  .dark {
+    /* Dark Mode - Deep Blue/Purple Theme */
+    --background: 230 25% 8%;
+    --foreground: 220 15% 95%;
+    --card: 230 20% 12%;
+    --card-foreground: 220 15% 95%;
+    --popover: 230 20% 12%;
+    --popover-foreground: 220 15% 95%;
+    
+    /* Primary - Bright Blue */
+    --primary: 233 85% 65%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary - Purple */
+    --secondary: 265 75% 70%;
+    --secondary-foreground: 0 0% 100%;
+    
+    /* Muted */
+    --muted: 230 20% 18%;
+    --muted-foreground: 220 15% 65%;
+    
+    /* Accent - Orange */
+    --accent: 35 95% 60%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Destructive */
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders and Inputs */
+    --border: 230 20% 20%;
+    --input: 230 20% 20%;
+    --ring: 233 85% 65%;
+    
+    /* Success */
+    --success: 142 76% 50%;
+    --success-foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

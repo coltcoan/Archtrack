@@ -1,0 +1,30 @@
+{
+  "appDisplayName": "Project Manager",
+  "description": "Used by project managers and team members to create, edit, and view projects and customer details in a mobile-responsive interface.",
+  "buildPath": "./dist",
+  "buildEntryPoint": "index.html",
+  "region": "prod",
+  "environmentId": "c2876617-3148-e581-b19d-1e09aba6c502",
+  "logoPath": "Default",
+  "localAppUrl": "http://localhost:5173/",
+  "connectionReferences": {},
+  "inMemoryDatabaseReferences": {
+    "data-workspace": {
+      "state": "Configured",
+      "dataSources": {
+        "crc53_customer": {
+          "entitySetName": "crc53_customers",
+          "logicalName": "crc53_customer",
+          "isHidden": false
+        },
+        "crc53_project": {
+          "entitySetName": "crc53_projects",
+          "logicalName": "crc53_project",
+          "isHidden": false
+        }
+      },
+      "version": "v9.0",
+      "environmentVariableName": ""
+    }
+  }
+}
