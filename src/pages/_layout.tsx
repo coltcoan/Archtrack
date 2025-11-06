@@ -19,7 +19,7 @@ export default function Layout() {
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-3">
               <img 
-                src="/icon.png" 
+                src={`${import.meta.env.BASE_URL}icon.png`}
                 alt="CSA Logo" 
                 className="w-10 h-10 rounded-xl shadow-lg"
               />
