@@ -11,13 +11,23 @@ interface ConfigContextType {
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
 
 export function ConfigProvider({ children }: { children: React.ReactNode }) {
-  const [isConfigured, setIsConfigured] = useState<boolean>(false);
-  const [isDemoMode, setIsDemoMode] = useState<boolean>(false);
+  // Check if we're on GitHub Pages
+  const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
+  
+  const [isConfigured, setIsConfigured] = useState<boolean>(isGitHubPages);
+  const [isDemoMode, setIsDemoMode] = useState<boolean>(isGitHubPages);
   const [solutionArea, setSolutionArea] = useState<string | undefined>(undefined);
   const [skillset, setSkillset] = useState<number[] | undefined>(undefined);
-  const [isChecking, setIsChecking] = useState(true);
+  const [isChecking, setIsChecking] = useState(!isGitHubPages);
 
   const refreshConfig = async () => {
+    // Skip API calls on GitHub Pages
+    if (isGitHubPages) {
+      setIsConfigured(true);
+      setIsDemoMode(true);
+      return;
+    }
+    
     try {
       const response = await fetch('http://localhost:3001/api/settings/is-configured');
       const data = await response.json();
@@ -35,7 +45,10 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
       await refreshConfig();
       setIsChecking(false);
     };
-    checkConfig();
+    
+    if (!isGitHubPages) {
+      checkConfig();
+    }
   }, []);
 
   if (isChecking) {
