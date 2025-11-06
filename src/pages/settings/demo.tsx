@@ -13,13 +13,20 @@ export default function DemoSettings() {
   }, [isDemoMode]);
 
   const handleDemoModeToggle = async (checked: boolean) => {
-    // Don't allow toggling on GitHub Pages
+    setLocalDemoMode(checked);
+
+    // On GitHub Pages, save to localStorage
     if (isGitHubPages) {
+      localStorage.setItem('archtrack-demo-mode', checked.toString());
+      await refreshConfig();
+      
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
       return;
     }
     
-    setLocalDemoMode(checked);
-
+    // On local deployment, call backend API
     try {
       const response = await fetch('http://localhost:3001/api/settings/demo-mode', {
         method: 'POST',
@@ -54,7 +61,7 @@ export default function DemoSettings() {
           <div className="flex-1">
             <p className="text-sm text-muted-foreground mb-2">
               {isGitHubPages 
-                ? 'This deployment is running in demo mode with sample data. To use your own data, run the app locally.'
+                ? 'Toggle demo mode to switch between sample data and an empty workspace. Demo mode is enabled by default on this deployment.'
                 : 'Show sample data for demonstrations and testing. Your actual data remains unchanged and will be restored when demo mode is disabled.'
               }
             </p>
@@ -74,7 +81,6 @@ export default function DemoSettings() {
           <Switch
             checked={localDemoMode}
             onCheckedChange={handleDemoModeToggle}
-            disabled={isGitHubPages}
           />
         </div>
         

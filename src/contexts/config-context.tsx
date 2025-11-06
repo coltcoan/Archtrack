@@ -14,17 +14,39 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
   // Check if we're on GitHub Pages
   const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
   
-  const [isConfigured, setIsConfigured] = useState<boolean>(isGitHubPages);
-  const [isDemoMode, setIsDemoMode] = useState<boolean>(isGitHubPages);
+  // Get initial demo mode state from localStorage or default to true on GitHub Pages
+  const getInitialDemoMode = () => {
+    if (!isGitHubPages) return false;
+    
+    const stored = localStorage.getItem('archtrack-demo-mode');
+    if (stored !== null) {
+      return stored === 'true';
+    }
+    return true; // Default to demo mode on GitHub Pages
+  };
+  
+  const getInitialConfigured = () => {
+    if (!isGitHubPages) return false;
+    
+    // On GitHub Pages, configured state matches demo mode
+    return getInitialDemoMode();
+  };
+  
+  const [isConfigured, setIsConfigured] = useState<boolean>(getInitialConfigured());
+  const [isDemoMode, setIsDemoMode] = useState<boolean>(getInitialDemoMode());
   const [solutionArea, setSolutionArea] = useState<string | undefined>(undefined);
   const [skillset, setSkillset] = useState<number[] | undefined>(undefined);
   const [isChecking, setIsChecking] = useState(!isGitHubPages);
 
   const refreshConfig = async () => {
-    // Skip API calls on GitHub Pages
+    // On GitHub Pages, manage demo mode and configured state via localStorage
     if (isGitHubPages) {
-      setIsConfigured(true);
-      setIsDemoMode(true);
+      const storedDemoMode = localStorage.getItem('archtrack-demo-mode');
+      const demoMode = storedDemoMode !== null ? storedDemoMode === 'true' : true;
+      
+      // If demo mode is disabled, treat as not configured (show setup screens)
+      setIsConfigured(demoMode);
+      setIsDemoMode(demoMode);
       return;
     }
     

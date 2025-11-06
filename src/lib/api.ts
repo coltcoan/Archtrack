@@ -4,11 +4,18 @@ import { DEMO_PROJECTS, DEMO_CUSTOMERS } from './demo-data';
 const API_BASE_URL = 'http://localhost:3001/api';
 const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
 
+// Helper to check if demo mode is enabled
+const isDemoModeEnabled = (): boolean => {
+  if (!isGitHubPages) return false;
+  const stored = localStorage.getItem('archtrack-demo-mode');
+  return stored !== null ? stored === 'true' : true; // Default to true on GitHub Pages
+};
+
 // Projects API
 export const projectsApi = {
   getAll: async (): Promise<Project[]> => {
-    // Return demo data on GitHub Pages
-    if (isGitHubPages) {
+    // Return demo data on GitHub Pages if demo mode is enabled
+    if (isGitHubPages && isDemoModeEnabled()) {
       return DEMO_PROJECTS;
     }
 
@@ -30,8 +37,8 @@ export const projectsApi = {
   },
 
   getById: async (id: string): Promise<Project> => {
-    // Return demo data on GitHub Pages
-    if (isGitHubPages) {
+    // Return demo data on GitHub Pages if demo mode is enabled
+    if (isGitHubPages && isDemoModeEnabled()) {
       const project = DEMO_PROJECTS.find(p => p.crc53_projectid === id);
       if (!project) {
         throw new Error('Project not found');
@@ -57,8 +64,8 @@ export const projectsApi = {
   },
 
   create: async (data: Partial<Project>): Promise<Project> => {
-    // Block creates on GitHub Pages
-    if (isGitHubPages) {
+    // Block creates on GitHub Pages when demo mode is enabled
+    if (isGitHubPages && isDemoModeEnabled()) {
       throw new Error('Cannot create projects in demo mode');
     }
 
@@ -76,8 +83,8 @@ export const projectsApi = {
   },
 
   update: async (id: string, data: Partial<Project>): Promise<Project> => {
-    // Block updates on GitHub Pages
-    if (isGitHubPages) {
+    // Block updates on GitHub Pages when demo mode is enabled
+    if (isGitHubPages && isDemoModeEnabled()) {
       throw new Error('Cannot update projects in demo mode');
     }
 
@@ -95,8 +102,8 @@ export const projectsApi = {
   },
 
   delete: async (id: string): Promise<void> => {
-    // Block deletes on GitHub Pages
-    if (isGitHubPages) {
+    // Block deletes on GitHub Pages when demo mode is enabled
+    if (isGitHubPages && isDemoModeEnabled()) {
       throw new Error('Cannot delete projects in demo mode');
     }
 
@@ -114,8 +121,8 @@ export const projectsApi = {
 // Customers API
 export const customersApi = {
   getAll: async (): Promise<Customer[]> => {
-    // Return demo data on GitHub Pages
-    if (isGitHubPages) {
+    // Return demo data on GitHub Pages if demo mode is enabled
+    if (isGitHubPages && isDemoModeEnabled()) {
       return DEMO_CUSTOMERS;
     }
 
@@ -130,8 +137,8 @@ export const customersApi = {
   },
 
   getById: async (id: string): Promise<Customer> => {
-    // Return demo data on GitHub Pages
-    if (isGitHubPages) {
+    // Return demo data on GitHub Pages if demo mode is enabled
+    if (isGitHubPages && isDemoModeEnabled()) {
       const customer = DEMO_CUSTOMERS.find(c => c.crc53_customerid === id);
       if (!customer) {
         throw new Error('Customer not found');
@@ -149,8 +156,8 @@ export const customersApi = {
   },
 
   create: async (data: Partial<Customer>): Promise<Customer> => {
-    // Block creates on GitHub Pages
-    if (isGitHubPages) {
+    // Block creates on GitHub Pages when demo mode is enabled
+    if (isGitHubPages && isDemoModeEnabled()) {
       throw new Error('Cannot create customers in demo mode');
     }
 
@@ -168,8 +175,8 @@ export const customersApi = {
   },
 
   update: async (id: string, data: Partial<Customer>): Promise<Customer> => {
-    // Block updates on GitHub Pages
-    if (isGitHubPages) {
+    // Block updates on GitHub Pages when demo mode is enabled
+    if (isGitHubPages && isDemoModeEnabled()) {
       throw new Error('Cannot update customers in demo mode');
     }
 
@@ -187,8 +194,8 @@ export const customersApi = {
   },
 
   delete: async (id: string): Promise<void> => {
-    // Block deletes on GitHub Pages
-    if (isGitHubPages) {
+    // Block deletes on GitHub Pages when demo mode is enabled
+    if (isGitHubPages && isDemoModeEnabled()) {
       throw new Error('Cannot delete customers in demo mode');
     }
 
